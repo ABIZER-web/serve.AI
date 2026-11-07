@@ -223,8 +223,8 @@ export const FloorPlanManagement = () => {
                 <span className="text-primary font-bold hover:underline flex items-center gap-1">
                   <Eye className="w-3.5 h-3.5" /> Manage
                 </span>
-                <span className="text-[10px] text-gray-400 font-mono">
-                  {table.token?.slice(0, 10)}...
+                <span className="text-[10px] text-gray-400 font-semibold">
+                  {table.capacity} Seats
                 </span>
               </div>
             </div>

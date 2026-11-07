@@ -39,7 +39,7 @@ export const NfcProgrammingModal = ({ isOpen, onClose, table }) => {
         {/* Target URL */}
         <div>
           <label className="font-bold text-gray-700 dark:text-gray-300 block mb-1">
-            Table URL (with Cryptographic Anti-Tamper Token)
+            Secure Table NFC Entry Link
           </label>
           <div className="flex items-center gap-2">
             <input
@@ -53,7 +53,7 @@ export const NfcProgrammingModal = ({ isOpen, onClose, table }) => {
             </Button>
           </div>
           <span className="text-[10px] text-gray-400 mt-1 block">
-            🔒 Token prevents unauthorized diners from changing tables simply by altering the URL number.
+            🔒 Verified link ensures diners are only connected to their own table.
           </span>
         </div>
 

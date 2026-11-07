@@ -117,7 +117,7 @@ export const StaffDashboardPage = () => {
               <h1 className="font-display text-3xl font-bold tracking-tight">Staff Order Management</h1>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Live orders updating instantly via Supabase Realtime WebSocket engine.
+              Live kitchen orders and guest service requests updating in real time.
             </p>
           </div>
 
@@ -125,10 +125,10 @@ export const StaffDashboardPage = () => {
             <button
               onClick={handleSimulateOrder}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-primary hover:bg-primary-600 text-white transition shadow-sm active:scale-95"
-              title="Generate a live test table order"
+              title="Add a sample table order"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Simulate Order</span>
+              <span>+ Demo Order</span>
             </button>
 
             <button

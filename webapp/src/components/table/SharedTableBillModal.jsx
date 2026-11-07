@@ -610,8 +610,9 @@ export const SharedTableBillModal = ({
                       <p className="text-[11px] text-gray-500">
                         Supports Visa, MasterCard, RuPay, NetBanking, UPI, and Digital Wallets.
                       </p>
-                      <div className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono font-bold bg-emerald-100/60 dark:bg-emerald-950/40 py-1 px-3 rounded-full inline-block">
-                        Active Key: {import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_ToBU0COX5xjDYg'}
+                      <div className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-100/60 dark:bg-emerald-950/40 py-1 px-3 rounded-full inline-flex items-center gap-1">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span>100% Secure & Encrypted Payment</span>
                       </div>
                     </div>
                   )}

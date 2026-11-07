@@ -154,10 +154,10 @@ export const CustomerMenuPage = () => {
           </div>
           <div>
             <h2 className="font-display font-black text-2xl text-secondary-900 dark:text-white">
-              Unauthorized Table Access
+              Scan Table to View Menu
             </h2>
             <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-              {tokenValidation.reason || 'This table session requires a valid cryptographic token to prevent table spoofing.'}
+              Please scan the official QR code or tap the NFC tag on your table stand to view the menu and place your order.
             </p>
           </div>
 

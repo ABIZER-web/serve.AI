@@ -63,10 +63,10 @@ export const TableManagement = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-secondary-900 dark:text-white">
-            Table & Secure QR Management
+            Table & Smart QR Management
           </h1>
           <p className="text-xs text-gray-500 mt-0.5">
-            Every table has a unique cryptographic token and NFC URL preventing table-number URL spoofing.
+            Manage your dining tables, print branded QR acrylic stands, and configure tap-to-order NFC tags.
           </p>
         </div>
 
@@ -274,8 +274,8 @@ export const TableManagement = () => {
                     alt={`QR for ${table.tableNumber}`}
                     className="w-20 h-20 mx-auto rounded-lg border bg-white p-1"
                   />
-                  <div className="text-[9px] text-gray-400 font-mono mt-1 truncate">
-                    NFC + QR Token Active
+                  <div className="text-[9px] text-gray-500 font-bold mt-1 tracking-wide">
+                    Tap NFC or Scan QR
                   </div>
                 </div>
               </div>
@@ -504,8 +504,8 @@ export const TableManagement = () => {
                       className="w-36 h-36 my-3 rounded-lg border p-1"
                     />
 
-                    <div className="text-[9px] font-mono text-gray-400">
-                      SECURE TOKEN: {t.token.slice(0, 20)}...
+                    <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                      Tap NFC • Scan QR • Order & Pay
                     </div>
                   </div>
                 ))}

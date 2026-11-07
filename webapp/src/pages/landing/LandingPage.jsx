@@ -136,10 +136,10 @@ export const LandingPage = () => {
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <h3 className="font-display font-bold text-xl mb-2 text-secondary-900 dark:text-white">
-                  Cryptographic Table QR
+                  Smart Table QR & NFC
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed font-sans">
-                  Every dining table gets a tamper-proof cryptographic token. Customers cannot simply edit the URL to order for someone else's table.
+                  Every dining table gets an exclusive, tamper-proof QR stand and NFC tag. Diners get a verified shared ordering session with zero app installation.
                 </p>
               </div>
               <Link to="/admin/tables" className="text-primary text-xs font-bold mt-5 inline-flex items-center gap-1 uppercase tracking-wider font-sans">

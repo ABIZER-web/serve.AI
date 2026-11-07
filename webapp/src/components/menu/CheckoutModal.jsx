@@ -161,7 +161,7 @@ export const CheckoutModal = ({ isOpen, onClose, tableNumber, tableToken, onSucc
               className="w-32 h-32 mx-auto rounded-lg border p-1 bg-white shadow-sm"
             />
             <div className="text-[11px] text-gray-500 mt-2">
-              Virtual UPI ID: <span className="font-mono font-bold text-secondary-800 dark:text-gray-200">foodhouse@okhdfcbank</span>
+              UPI ID: <span className="font-semibold text-secondary-800 dark:text-gray-200">foodhouse@okhdfcbank</span>
             </div>
             <div className="mt-3 pt-2 border-t border-gray-200 dark:border-secondary-700 space-y-2">
               <button
@@ -196,7 +196,7 @@ export const CheckoutModal = ({ isOpen, onClose, tableNumber, tableToken, onSucc
                 className="w-full py-2 px-3 rounded-lg bg-primary hover:bg-primary-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm"
               >
                 <CreditCard className="w-4 h-4" />
-                <span>Pay via Razorpay Checkout (Cards / UPI)</span>
+                <span>Pay Online (Cards / UPI / NetBanking)</span>
               </button>
 
               <button
@@ -208,7 +208,7 @@ export const CheckoutModal = ({ isOpen, onClose, tableNumber, tableToken, onSucc
                 className="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition"
               >
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Simulate Instant UPI Approval (Test Payment)</span>
+                <span>Confirm UPI Payment Received</span>
               </button>
             </div>
           </div>
