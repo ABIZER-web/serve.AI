@@ -60,6 +60,42 @@ export const PayAtTableModal = ({ isOpen, onClose, tableNumber, guestName = 'Din
     e.preventDefault();
     if (payableAmount <= 0) return;
 
+    if (paymentMethod === 'card' && typeof window !== 'undefined' && window.Razorpay) {
+      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_ToBU0COX5xjDYg';
+      try {
+        const rzp = new window.Razorpay({
+          key: razorpayKey,
+          amount: Math.round(payableAmount * 100),
+          currency: 'INR',
+          name: restaurant.name || 'Food House',
+          description: `Table ${tableNumber} Payment`,
+          prefill: {
+            name: guestName || 'Guest',
+          },
+          theme: {
+            color: '#F97316',
+          },
+          handler: (response) => {
+            const record = recordPartialPayment(
+              tableNumber,
+              payableAmount,
+              guestName,
+              'card'
+            );
+            setLastPayment(record);
+            setIsSuccess(true);
+            try {
+              confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+            } catch (e) {}
+          },
+        });
+        rzp.open();
+        return;
+      } catch (err) {
+        console.warn('Razorpay open failed, continuing with direct confirmation:', err);
+      }
+    }
+
     const record = recordPartialPayment(
       tableNumber,
       payableAmount,

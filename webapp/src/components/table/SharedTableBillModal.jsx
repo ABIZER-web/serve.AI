@@ -110,6 +110,67 @@ export const SharedTableBillModal = ({
     e.preventDefault();
     if (payableAmount <= 0) return;
 
+    // Razorpay Card / Netbanking checkout flow
+    if (paymentMethod === 'card' && typeof window !== 'undefined' && window.Razorpay) {
+      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_ToBU0COX5xjDYg';
+      const rzpOptions = {
+        key: razorpayKey,
+        amount: Math.round(payableAmount * 100), // amount in paise
+        currency: 'INR',
+        name: restaurant.name || 'Food House',
+        description: `Table ${tableNumber} Bill Settlement (${splitTab.toUpperCase()})`,
+        prefill: {
+          name: currentGuestName || 'Guest',
+        },
+        theme: {
+          color: '#F97316',
+        },
+        handler: (response) => {
+          setIsProcessing(true);
+          const selectedItemsList =
+            splitTab === 'items'
+              ? allOrderedItems.filter((i) => selectedItemKeys.has(i.key)).map((i) => i.name)
+              : [];
+
+          const record = recordPartialPayment(tableNumber, {
+            amount: payableAmount,
+            paidBy: currentGuestName,
+            method: 'card',
+            transactionId: response.razorpay_payment_id || `RZP-${Date.now()}`,
+            splitType: splitTab,
+            itemsCovered: selectedItemsList,
+          });
+
+          setIsProcessing(false);
+          setCompletedPayment(record);
+          try {
+            confetti({
+              particleCount: 80,
+              spread: 70,
+              origin: { y: 0.6 },
+            });
+          } catch (err) {}
+        },
+        modal: {
+          ondismiss: () => {
+            setIsProcessing(false);
+          },
+        },
+      };
+
+      try {
+        const rzp = new window.Razorpay(rzpOptions);
+        rzp.on('payment.failed', (failResp) => {
+          setIsProcessing(false);
+          alert('Payment Failed: ' + (failResp.error?.description || 'Transaction cancelled'));
+        });
+        rzp.open();
+        return;
+      } catch (err) {
+        console.warn('Razorpay popup error, proceeding with instant simulation:', err);
+      }
+    }
+
     setIsProcessing(true);
 
     setTimeout(() => {
@@ -537,6 +598,33 @@ export const SharedTableBillModal = ({
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
+                    </div>
+                  )}
+
+                  {paymentMethod === 'card' && payableAmount > 0 && (
+                    <div className="bg-orange-50/70 dark:bg-orange-950/20 p-4 rounded-2xl border border-orange-200 dark:border-orange-800/40 text-center space-y-1.5">
+                      <div className="text-xs font-bold text-secondary-900 dark:text-white flex items-center justify-center gap-1.5">
+                        <CreditCard className="w-4 h-4 text-primary" />
+                        <span>Razorpay Secure Checkout</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500">
+                        Supports Visa, MasterCard, RuPay, NetBanking, UPI, and Digital Wallets.
+                      </p>
+                      <div className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono font-bold bg-emerald-100/60 dark:bg-emerald-950/40 py-1 px-3 rounded-full inline-block">
+                        Active Key: {import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_ToBU0COX5xjDYg'}
+                      </div>
+                    </div>
+                  )}
+
+                  {paymentMethod === 'counter' && payableAmount > 0 && (
+                    <div className="bg-gray-50 dark:bg-secondary-800/50 p-4 rounded-2xl border border-gray-100 dark:border-secondary-700 text-center space-y-1">
+                      <div className="text-xs font-bold text-secondary-900 dark:text-white flex items-center justify-center gap-1.5">
+                        <Banknote className="w-4 h-4 text-amber-600" />
+                        <span>Pay at Counter</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500">
+                        Inform your waiter or pay at the cash counter upon leaving.
+                      </p>
                     </div>
                   )}
                 </div>

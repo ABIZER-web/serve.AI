@@ -4,7 +4,7 @@ import { Button } from '../ui/Button';
 import { useCart } from '../../context/CartContext';
 import { formatINR } from '../../utils/currency';
 import confetti from 'canvas-confetti';
-import { QrCode, Banknote, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
+import { QrCode, Banknote, ShieldCheck, CheckCircle2, AlertCircle, CreditCard } from 'lucide-react';
 
 export const CheckoutModal = ({ isOpen, onClose, tableNumber, tableToken, onSuccess }) => {
   const { placeOrder, grandTotal } = useCart();
@@ -163,7 +163,42 @@ export const CheckoutModal = ({ isOpen, onClose, tableNumber, tableToken, onSucc
             <div className="text-[11px] text-gray-500 mt-2">
               Virtual UPI ID: <span className="font-mono font-bold text-secondary-800 dark:text-gray-200">foodhouse@okhdfcbank</span>
             </div>
-            <div className="mt-3 pt-2 border-t border-gray-200 dark:border-secondary-700">
+            <div className="mt-3 pt-2 border-t border-gray-200 dark:border-secondary-700 space-y-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.Razorpay) {
+                    const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_ToBU0COX5xjDYg';
+                    const rzp = new window.Razorpay({
+                      key: razorpayKey,
+                      amount: Math.round(grandTotal * 100),
+                      currency: 'INR',
+                      name: 'Food House',
+                      description: `Table ${tableNumber} Order Payment`,
+                      prefill: {
+                        name: customerName,
+                        contact: customerPhone,
+                      },
+                      theme: {
+                        color: '#F97316',
+                      },
+                      handler: (response) => {
+                        setPaymentMethod('upi');
+                        handleSubmit(new Event('submit'));
+                      },
+                    });
+                    rzp.open();
+                  } else {
+                    setPaymentMethod('upi');
+                    handleSubmit(new Event('submit'));
+                  }
+                }}
+                className="w-full py-2 px-3 rounded-lg bg-primary hover:bg-primary-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm"
+              >
+                <CreditCard className="w-4 h-4" />
+                <span>Pay via Razorpay Checkout (Cards / UPI)</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => {
