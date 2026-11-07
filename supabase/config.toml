@@ -1,0 +1,15 @@
+project_id = "ykkqtgkovgyuolhrcqzm"
+
+[api]
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+
+[db]
+port = 54322
+
+[studio]
+port = 54323
+
+[edge_runtime]
+port = 54324
+
