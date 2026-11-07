@@ -170,7 +170,7 @@ class LocalRestaurantStore {
         capacity: 4,
         isOccupied: [2, 5].includes(num),
         token: `TOKEN_${target.slug.toUpperCase()}_${tableNumber}_SECURE`,
-        qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`http://localhost:5173/r/${target.slug}/table/${tableNumber}?token=TOKEN_${target.slug.toUpperCase()}_${tableNumber}_SECURE`)}`,
+        qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${typeof window !== 'undefined' ? window.location.origin : 'https://serve-ai-26.vercel.app'}/r/${target.slug}/table/${tableNumber}?token=TOKEN_${target.slug.toUpperCase()}_${tableNumber}_SECURE`)}`,
       };
     });
     localStorage.setItem('serveai_tables', JSON.stringify(newTables));

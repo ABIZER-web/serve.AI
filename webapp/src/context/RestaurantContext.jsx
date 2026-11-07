@@ -172,7 +172,7 @@ export const RestaurantProvider = ({ children }) => {
       capacity,
       isOccupied: false,
       token,
-      qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`http://localhost:5173/r/${restaurant.slug}/table/${tableNumber}?token=${token}`)}`,
+      qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${typeof window !== 'undefined' ? window.location.origin : 'https://serve-ai-26.vercel.app'}/r/${restaurant.slug}/table/${tableNumber}?token=${token}`)}`,
     };
     localStore.saveTables([...tables, newTable]);
   };
@@ -181,7 +181,7 @@ export const RestaurantProvider = ({ children }) => {
     const target = tables.find((t) => t.id === tableId);
     if (!target) return;
     const newToken = `TOKEN_${restaurant.slug.toUpperCase()}_${target.tableNumber}_${Date.now()}`;
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`http://localhost:5173/r/${restaurant.slug}/table/${target.tableNumber}?token=${newToken}`)}`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${typeof window !== 'undefined' ? window.location.origin : 'https://serve-ai-26.vercel.app'}/r/${restaurant.slug}/table/${target.tableNumber}?token=${newToken}`)}`;
     updateTable(tableId, { token: newToken, qrUrl });
   };
 

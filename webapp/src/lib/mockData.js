@@ -213,7 +213,7 @@ export const CAFE_HIGHFIVE_TABLES = Array.from({ length: 10 }, (_, i) => {
     capacity: 4,
     isOccupied,
     token: `TOKEN_CAFE_HIGHFIVE_${tableNumber}_SECURE_KEY`,
-    qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`http://localhost:5173/r/cafe-highfive/table/${tableNumber}?token=TOKEN_CAFE_HIGHFIVE_${tableNumber}_SECURE_KEY`)}`,
+    qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${typeof window !== 'undefined' ? window.location.origin : 'https://serve-ai-26.vercel.app'}/r/cafe-highfive/table/${tableNumber}?token=TOKEN_CAFE_HIGHFIVE_${tableNumber}_SECURE_KEY`)}`,
   };
 });
 
